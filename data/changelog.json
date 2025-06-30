@@ -1,0 +1,5 @@
+{
+  "credits": "LUNA MD",
+  "version": "1.0.0",
+  "changelog": "FIRST RELEASE - LUNA MD BOT \n\n- Added anime search functionality\n- Updated welcome message with new image\n- Added new plugins: bible, book, calculate, calendar, capcut\n- Improved update check functionality with GitHub integration\n- Fixed minor bugs and improved performance"
+}
