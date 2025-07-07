@@ -1,6 +1,23 @@
-import { getBuffer } from "../lib/functions.js";
 import { Sticker, StickerTypes } from "wa-sticker-formatter";
 import config from "../config.cjs";
+import https from "https";
+import http from "http";
+import { URL } from "url";
+
+// Replace `getBuffer` with custom function
+async function getBuffer(url) {
+  return new Promise((resolve, reject) => {
+    const parsedUrl = new URL(url);
+    const lib = parsedUrl.protocol === "https:" ? https : http;
+
+    lib.get(parsedUrl, (res) => {
+      const data = [];
+
+      res.on("data", chunk => data.push(chunk));
+      res.on("end", () => resolve(Buffer.concat(data)));
+    }).on("error", reject);
+  });
+}
 
 async function doReact(emoji, mek, Matrix) {
   try {
@@ -12,7 +29,6 @@ async function doReact(emoji, mek, Matrix) {
   }
 }
 
-// Helper to get emoji Unicode code point
 function getCodePoint(emoji) {
   return emoji.codePointAt(0).toString(16);
 }

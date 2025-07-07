@@ -5,7 +5,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "pm2 start index.js --name luna-md --attach --deep-monitoring",
+    "start": "node index.js",
+    "start:pms": "",
     "stop": "pm2 stop luna-md",
     "restart": "pm2 restart luna-md"
   },
@@ -21,11 +22,14 @@
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "^1.1.0",
     "@google/generative-ai": "^0.24.1",
-    "@whiskeysockets/baileys": "github:gatanina-li/baileys",
+    "@whiskeysockets/baileys": "npm:baileys-pro@latest",
     "acrcloud": "^1.4.0",
     "adm-zip": "^0.5.16",
+    "api-qasim": "^3.2.5",
+    "archiver": "^7.0.1",
     "awesome-phonenumber": "^7.5.0",
     "axios": "^1.6.8",
+    "caliph-api": "^1.0.1",
     "chalk": "^5.3.0",
     "darksadasyt-anime": "^1.0.0",
     "dotenv": "^16.4.5",
@@ -35,6 +39,7 @@
     "fluent-ffmpeg": "^2.1.3",
     "form-data": "^4.0.3",
     "fs-extra": "^11.2.0",
+    "g-i-s": "^2.1.7",
     "human-readable": "^0.2.1",
     "jimp": "^0.16.13",
     "jsqr": "^1.4.0",
@@ -55,6 +60,7 @@
     "tesseract.js": "^5.1.0",
     "translate-google-api": "^1.0.4",
     "uuid": "^9.0.1",
+    "wa-sticker-formatter": "^4.4.4",
     "yt-search": "^2.11.0"
   }
 }

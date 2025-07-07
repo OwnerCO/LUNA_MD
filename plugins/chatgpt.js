@@ -47,10 +47,10 @@ const gpt = async (m, Matrix) => {
   try {
     await Matrix.sendPresenceUpdate("composing", m.from);
 
-    const apiUrl = `https://suhas-bro-apii.vercel.app/Gpt-4?q=${encodeURIComponent(query)}`;
+    const apiUrl = `https://apis.davidcyriltech.my.id/ai/chatbot?query=${encodeURIComponent(query)}`;
     const res = await axios.get(apiUrl);
 
-    if (!res.data || !res.data.response) {
+    if (!res.data || !res.data.result) {
       return Matrix.sendMessage(
         m.from,
         {
@@ -61,7 +61,7 @@ const gpt = async (m, Matrix) => {
       );
     }
 
-    const aiText = `💡 *${res.data.title || "AI says"}*\n\n${res.data.response}\n\n🌙 _Your buddy, LUNA MD 😇_\n🔌 _Powered by HANS TECH_`;
+    const aiText = `💡 \n\n*${res.data.result}*\n\n🌙 _Your buddy, LUNA MD 😇_\n🔌 _Powered by HANS TECH_`;
 
     await Matrix.sendMessage(
       m.from,

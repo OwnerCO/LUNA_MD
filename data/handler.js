@@ -4,12 +4,15 @@ import fs from 'fs/promises';
 import config from '../config.cjs';
 import { smsg } from '../lib/myfunc.cjs';
 import { handleAntilink } from './antilink.js';
-import { fileURLToPath } from 'url';
+import { fileURLToPath, pathToFileURL } from 'url';
+import { getCommand } from '../command.js';
+import pkg from '../lib/autoreact.cjs';
+const { doReact } = pkg;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Function to get group admins
+// Get group admins
 export const getGroupAdmins = (participants) => {
     let admins = [];
     for (let i of participants) {
@@ -33,61 +36,71 @@ const Handler = async (chatUpdate, sock, logger) => {
         const isBotAdmins = m.isGroup ? groupAdmins.includes(botId) : false;
         const isAdmins = m.isGroup ? groupAdmins.includes(m.sender) : false;
 
-        const PREFIX = /^[\\/!#.]/;
-        const isCOMMAND = (body) => PREFIX.test(body);
-        const prefixMatch = isCOMMAND(m.body) ? m.body.match(PREFIX) : null;
-        const prefix = prefixMatch ? prefixMatch[0] : '/';
-        const cmd = m.body.startsWith(prefix) ? m.body.slice(prefix.length).split(' ')[0].toLowerCase() : '';
-        const text = m.body.slice(prefix.length + cmd.length).trim();
+        const PREFIX = config.PREFIX || '.';
+        const isCOMMAND = (body) => body && body.startsWith(PREFIX);
+        const cmd = isCOMMAND(m.body) ? m.body.slice(PREFIX.length).split(" ")[0].toLowerCase() : "";
+        const text = m.body?.slice(PREFIX.length + cmd.length).trim() || "";
         const botNumber = await sock.decodeJid(sock.user.id);
         const ownerNumber = config.OWNER_NUMBER + '@s.whatsapp.net';
-        let isCreator = false;
 
-        if (m.isGroup) {
-            isCreator = m.sender === ownerNumber || m.sender === botNumber;
-        } else {
-            isCreator = m.sender === ownerNumber || m.sender === botNumber;
-        }
+        let isCreator = m.sender === ownerNumber || m.sender === botNumber;
+        if (m.isGroup) isCreator ||= m.sender === botNumber;
 
-        if (!sock.public) {
-            if (!isCreator) {
-                return;
-            }
-        }
+        if (!sock.public && !isCreator) return;
 
         await handleAntilink(m, sock, logger, isBotAdmins, isAdmins, isCreator);
 
-        const { isGroup, type, sender, from, body } = m;
-      //  console.log(m);
+        const { from, sender } = m;
 
-        // ✅ Corrected Plugin Folder Path
-        const pluginDir = path.resolve(__dirname, '..', 'plugins');  
-        
+        // ✅ RUN .cjs or .js plugins using cmd() system
+        const foundCmd = getCommand(PREFIX + cmd);
+        if (foundCmd && typeof foundCmd.handler === 'function') {
+            try {
+                // ✅ Auto react if react emoji is specified
+                if (foundCmd.react) {
+                    try {
+                        await doReact(foundCmd.react, m, sock);
+                    } catch (err) {
+                        console.error(`❌ Failed to react for ${cmd}:`, err);
+                    }
+                }
+
+                await foundCmd.handler(sock, m, m, {
+                    from,
+                    sender,
+                    reply: async (text) => await sock.sendMessage(from, { text }, { quoted: m }),
+                    q: text
+                });
+            } catch (err) {
+                console.error(`❌ Error running command ${cmd}:`, err);
+            }
+            return;
+        }
+
+        // ✅ Also support ESM-based plugin files with export default
+        const pluginDir = path.resolve(__dirname, '..', 'plugins');
         try {
             const pluginFiles = await fs.readdir(pluginDir);
-
             for (const file of pluginFiles) {
                 if (file.endsWith('.js')) {
                     const pluginPath = path.join(pluginDir, file);
-                    
                     try {
-                        const pluginModule = await import(`file://${pluginPath}`);
-                        const loadPlugins = pluginModule.default;
-                        await loadPlugins(m, sock);
+                        const pluginModule = await import(pathToFileURL(pluginPath).href);
+                        if (pluginModule.default) {
+                            await pluginModule.default(m, sock); // ESM style plugins
+                        }
                     } catch (err) {
-                        console.error(`❌ Failed to load plugin: ${pluginPath}`, err);
+                        console.error(`❌ Failed to run ESM plugin: ${file}`, err);
                     }
                 }
             }
         } catch (err) {
-            console.error(`❌ Plugin folder not found: ${pluginDir}`, err);
+            console.error(`❌ Plugin folder error: ${pluginDir}`, err);
         }
 
     } catch (e) {
-        console.error(e);
+        console.error('❌ Handler crashed:', e);
     }
 };
 
 export default Handler;
-        
-            

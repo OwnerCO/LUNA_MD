@@ -1,5 +1,7 @@
 import config from "../config.cjs";
-import { sleep } from "../lib/functions2.js";
+
+// Sleep helper (replaces sleep from functions2.js)
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 // React helper
 async function doReact(emoji, mek, Matrix) {
@@ -65,7 +67,7 @@ const hack = async (m, Matrix) => {
       );
     }
 
-    // Step 3: Fun message sequence
+    // Step 3: Funny messages
     const funnyLines = [
       "📶 Connecting to grandma's WiFi...",
       "📂 Accessing memes folder...",

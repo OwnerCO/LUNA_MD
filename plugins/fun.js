@@ -1,8 +1,8 @@
-import config from "../config.cjs";
 import axios from "axios";
 import fetch from "node-fetch";
+import config from "../config.cjs";
 
-// Helper: newsletter context
+// 📦 Newsletter context helper
 function getNewsletterContext(mentioned = []) {
   return {
     mentionedJid: mentioned,
@@ -16,20 +16,18 @@ function getNewsletterContext(mentioned = []) {
   };
 }
 
-// Image URLs
+// 🖼️ Image URLs
 const JOKE_IMG = "https://i.ibb.co/PS5DZdJ/Chat-GPT-Image-Mar-30-2025-12-53-39-PM.png";
 const QUOTE_IMG = "https://i.ibb.co/6Rxhg321/Chat-GPT-Image-Mar-30-2025-03-39-42-AM.png";
 
-// Jokes handler
+// 😂 Jokes
 const jokes = async (m, Matrix) => {
   const ctx = getNewsletterContext([m.sender]);
-  
   try {
     await Matrix.sendMessage(m.from, { react: { text: "😂", key: m.key } });
     const res = await fetch("https://official-joke-api.appspot.com/random_joke").then(r => r.json());
 
-    if (res.setup && res.punchline) {
-      const jokeMsg = `
+    const jokeMsg = `
 🤣 *LUNA MD JOKE* 🤣
 
 ╭─・─・─・─・─・─・─・─╮
@@ -38,261 +36,209 @@ const jokes = async (m, Matrix) => {
 │ 😂 ${res.punchline}
 ╰─・─・─・─・─・─・─・─╯
 
-💖 *Powered by 𝐇𝐀𝐍𝐒 𝐓𝐄𝐂𝐇* 😇
-      `.trim();
+💖 *Powered by 𝐇𝐀𝐍𝐒 𝐓𝐄𝐂𝐇* 😇`.trim();
 
-      await Matrix.sendMessage(
-        m.from,
-        {
-          image: { url: JOKE_IMG },
-          caption: jokeMsg,
-          contextInfo: ctx
-        },
-        { quoted: m }
-      );
-    } else {
-      throw new Error("Couldn't fetch a joke");
-    }
-  } catch (e) {
-    console.error("LUNA MD joke error:", e);
-    Matrix.sendMessage(
-      m.from,
-      {
-        text: "❌ Oopsie~ Couldn't find a joke! Try again later?",
-        contextInfo: ctx
-      },
-      { quoted: m }
-    );
+    await Matrix.sendMessage(m.from, {
+      image: { url: JOKE_IMG },
+      caption: jokeMsg,
+      contextInfo: ctx,
+    }, { quoted: m });
+
+  } catch {
+    Matrix.sendMessage(m.from, {
+      text: "❌ Oopsie~ Couldn't find a joke! Try again later?",
+      contextInfo: ctx,
+    }, { quoted: m });
   }
 };
 
-// Quote handler
+// 💡 Quote
 const quote = async (m, Matrix) => {
   const ctx = getNewsletterContext([m.sender]);
-  
   try {
     await Matrix.sendMessage(m.from, { react: { text: "💡", key: m.key } });
-    const response = await axios.get('https://apis.davidcyriltech.my.id/random/quotes');
-    
-    if (response.data.success) {
-      const quoteMsg = `
+    const res = await axios.get("https://apis.davidcyriltech.my.id/random/quotes");
+
+    const quoteMsg = `
 💫 *LUNA MD QUOTE* 💫
 
 ╭─・─・─・─・─・─・─・─╮
-│ "${response.data.response.quote}"
+│ "${res.data.response.quote}"
 │ 
-│ - ${response.data.response.author}
+│ - ${res.data.response.author}
 ╰─・─・─・─・─・─・─・─╯
 
-💖 *Powered by 𝐇𝐀𝐍𝐒 𝐓𝐄𝐂𝐇* 😇
-      `.trim();
+💖 *Powered by 𝐇𝐀𝐍𝐒 𝐓𝐄𝐂𝐇* 😇`.trim();
 
-      await Matrix.sendMessage(
-        m.from,
-        {
-          image: { url: QUOTE_IMG },
-          caption: quoteMsg,
-          contextInfo: ctx
-        },
-        { quoted: m }
-      );
-    } else {
-      throw new Error("Failed to fetch quote");
-    }
-  } catch (error) {
-    console.error("LUNA MD quote error:", error);
-    Matrix.sendMessage(
-      m.from,
-      {
-        text: "❌ Oopsie~ Couldn't find wisdom! Try again?",
-        contextInfo: ctx
-      },
-      { quoted: m }
-    );
+    await Matrix.sendMessage(m.from, {
+      image: { url: QUOTE_IMG },
+      caption: quoteMsg,
+      contextInfo: ctx,
+    }, { quoted: m });
+
+  } catch {
+    Matrix.sendMessage(m.from, {
+      text: "❌ Oopsie~ Couldn't find wisdom! Try again?",
+      contextInfo: ctx,
+    }, { quoted: m });
   }
 };
 
-// Pickup Line handler
+// 💘 Pickup Line
 const pickup = async (m, Matrix) => {
   const ctx = getNewsletterContext([m.sender]);
-  
   try {
     await Matrix.sendMessage(m.from, { react: { text: "💘", key: m.key } });
-    const response = await axios.get('https://apis.davidcyriltech.my.id/pickupline');
-    
-    if (response.data.success) {
-      const pickupMsg = `
+    const res = await axios.get("https://apis.davidcyriltech.my.id/pickupline");
+
+    const pickupMsg = `
 💘 *LUNA MD PICKUP LINE* 💘
 
 ╭─・─・─・─・─・─・─・─╮
-│ "${response.data.pickupline}"
+│ "${res.data.pickupline}"
 ╰─・─・─・─・─・─・─・─╯
 
-💖 *Powered by 𝐇𝐀𝐍𝐒 𝐓𝐄𝐂𝐇* 😇
-      `.trim();
+💖 *Powered by 𝐇𝐀𝐍𝐒 𝐓𝐄𝐂𝐇* 😇`.trim();
 
-      await Matrix.sendMessage(
-        m.from,
-        {
-          image: { url: QUOTE_IMG },
-          caption: pickupMsg,
-          contextInfo: ctx
-        },
-        { quoted: m }
-      );
-    } else {
-      throw new Error("Failed to fetch pickup line");
-    }
-  } catch (error) {
-    console.error("LUNA MD pickup error:", error);
-    Matrix.sendMessage(
-      m.from,
-      {
-        text: "❌ Oopsie~ Couldn't find love! Try again?",
-        contextInfo: ctx
-      },
-      { quoted: m }
-    );
+    await Matrix.sendMessage(m.from, {
+      image: { url: QUOTE_IMG },
+      caption: pickupMsg,
+      contextInfo: ctx,
+    }, { quoted: m });
+
+  } catch {
+    Matrix.sendMessage(m.from, {
+      text: "❌ Oopsie~ Couldn't find love! Try again?",
+      contextInfo: ctx,
+    }, { quoted: m });
   }
 };
 
-// Advice handler
+// 🧠 Advice
 const advice = async (m, Matrix) => {
   const ctx = getNewsletterContext([m.sender]);
-  
   try {
     await Matrix.sendMessage(m.from, { react: { text: "🧠", key: m.key } });
-    const response = await axios.get('https://api.giftedtech.web.id/api/fun/advice?apikey=gifted');
-    
-    if (response.data.success) {
-      const adviceMsg = `
+    const res = await axios.get("https://api.giftedtech.web.id/api/fun/advice?apikey=gifted");
+
+    const adviceMsg = `
 🧠 *LUNA MD ADVICE* 🧠
 
 ╭─・─・─・─・─・─・─・─╮
-│ "${response.data.result}"
+│ "${res.data.result}"
 ╰─・─・─・─・─・─・─・─╯
 
-💖 *Powered by 𝐇𝐀𝐍𝐒 𝐓𝐄𝐂𝐇* 😇
-      `.trim();
+💖 *Powered by 𝐇𝐀𝐍𝐒 𝐓𝐄𝐂𝐇* 😇`.trim();
 
-      await Matrix.sendMessage(
-        m.from,
-        {
-          image: { url: QUOTE_IMG },
-          caption: adviceMsg,
-          contextInfo: ctx
-        },
-        { quoted: m }
-      );
-    } else {
-      throw new Error("Failed to fetch advice");
-    }
-  } catch (error) {
-    console.error("LUNA MD advice error:", error);
-    Matrix.sendMessage(
-      m.from,
-      {
-        text: "❌ Oopsie~ Couldn't find advice! Try again?",
-        contextInfo: ctx
-      },
-      { quoted: m }
-    );
+    await Matrix.sendMessage(m.from, {
+      image: { url: QUOTE_IMG },
+      caption: adviceMsg,
+      contextInfo: ctx,
+    }, { quoted: m });
+
+  } catch {
+    Matrix.sendMessage(m.from, {
+      text: "❌ Oopsie~ Couldn't find advice! Try again?",
+      contextInfo: ctx,
+    }, { quoted: m });
   }
 };
 
-// Goodnight handler
+// 🌙 Good Night
 const goodnight = async (m, Matrix) => {
   const ctx = getNewsletterContext([m.sender]);
-  
   try {
     await Matrix.sendMessage(m.from, { react: { text: "🌙", key: m.key } });
-    const response = await axios.get('https://api.giftedtech.web.id/api/fun/goodnight?apikey=gifted');
-    
-    if (response.data.success) {
-      const nightMsg = `
+    const res = await axios.get("https://api.giftedtech.web.id/api/fun/goodnight?apikey=gifted");
+
+    const msg = `
 🌙 *LUNA MD GOOD NIGHT* 🌙
 
 ╭─・─・─・─・─・─・─・─╮
-│ "${response.data.result}"
+│ "${res.data.result}"
 ╰─・─・─・─・─・─・─・─╯
 
-💖 *Powered by 𝐇𝐀𝐍𝐒 𝐓𝐄𝐂𝐇* 😇
-      `.trim();
+💖 *Powered by 𝐇𝐀𝐍𝐒 𝐓𝐄𝐂𝐇* 😇`.trim();
 
-      await Matrix.sendMessage(
-        m.from,
-        {
-          image: { url: QUOTE_IMG },
-          caption: nightMsg,
-          contextInfo: ctx
-        },
-        { quoted: m }
-      );
-    } else {
-      throw new Error("Failed to fetch goodnight message");
-    }
-  } catch (error) {
-    console.error("LUNA MD goodnight error:", error);
-    Matrix.sendMessage(
-      m.from,
-      {
-        text: "❌ Oopsie~ Couldn't find bedtime wishes! Try again?",
-        contextInfo: ctx
-      },
-      { quoted: m }
-    );
+    await Matrix.sendMessage(m.from, {
+      image: { url: QUOTE_IMG },
+      caption: msg,
+      contextInfo: ctx,
+    }, { quoted: m });
+
+  } catch {
+    Matrix.sendMessage(m.from, {
+      text: "❌ Oopsie~ Couldn't find bedtime wishes! Try again?",
+      contextInfo: ctx,
+    }, { quoted: m });
   }
 };
 
-// Motivation handler
+// 🔥 Motivation
 const motivation = async (m, Matrix) => {
   const ctx = getNewsletterContext([m.sender]);
-  
   try {
     await Matrix.sendMessage(m.from, { react: { text: "🔥", key: m.key } });
-    const response = await axios.get('https://api.giftedtech.web.id/api/fun/motivation?apikey=gifted');
-    
-    if (response.data.success) {
-      const motivationMsg = `
+    const res = await axios.get("https://api.giftedtech.web.id/api/fun/motivation?apikey=gifted");
+
+    const msg = `
 🔥 *LUNA MD MOTIVATION* 🔥
 
 ╭─・─・─・─・─・─・─・─╮
-│ "${response.data.result}"
+│ "${res.data.result}"
 ╰─・─・─・─・─・─・─・─╯
 
-💖 *Powered by 𝐇𝐀𝐍𝐒 𝐓𝐄𝐂𝐇* 😇
-      `.trim();
+💖 *Powered by 𝐇𝐀𝐍𝐒 𝐓𝐄𝐂𝐇* 😇`.trim();
 
-      await Matrix.sendMessage(
-        m.from,
-        {
-          image: { url: QUOTE_IMG },
-          caption: motivationMsg,
-          contextInfo: ctx
-        },
-        { quoted: m }
-      );
-    } else {
-      throw new Error("Failed to fetch motivation");
-    }
-  } catch (error) {
-    console.error("LUNA MD motivation error:", error);
-    Matrix.sendMessage(
-      m.from,
-      {
-        text: "❌ Oopsie~ Couldn't find motivation! Try again?",
-        contextInfo: ctx
-      },
-      { quoted: m }
-    );
+    await Matrix.sendMessage(m.from, {
+      image: { url: QUOTE_IMG },
+      caption: msg,
+      contextInfo: ctx,
+    }, { quoted: m });
+
+  } catch {
+    Matrix.sendMessage(m.from, {
+      text: "❌ Oopsie~ Couldn't find motivation! Try again?",
+      contextInfo: ctx,
+    }, { quoted: m });
   }
 };
 
-export {
-  jokes,
-  quote,
-  pickup,
-  advice,
-  goodnight,
-  motivation
-};
+// ✅ Command loader
+export default async function register(m, Matrix) {
+  if (!m.body || typeof m.body !== 'string') return;
+
+  const prefix = config.PREFIX || '.';
+  const body = m.body.toLowerCase();
+  if (!body.startsWith(prefix)) return;
+
+  const [command] = body.slice(prefix.length).trim().split(/\s+/);
+
+  switch (command) {
+    case "joke":
+    case "jokes":
+      return await jokes(m, Matrix);
+
+    case "quote":
+    case "quotes":
+      return await quote(m, Matrix);
+
+    case "pickup":
+    case "pickupline":
+      return await pickup(m, Matrix);
+
+    case "advice":
+      return await advice(m, Matrix);
+
+    case "goodnight":
+    case "gn":
+      return await goodnight(m, Matrix);
+
+    case "motivate":
+    case "motivation":
+      return await motivation(m, Matrix);
+
+    default:
+      return;
+  }
+}

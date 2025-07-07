@@ -145,19 +145,7 @@ const broadcast = async (m, Matrix) => {
   }
 };
 
-// Helper: newsletter context
-function getNewsletterContext(mentioned = []) {
-  return {
-    mentionedJid: mentioned,
-    forwardingScore: 1000,
-    isForwarded: true,
-    forwardedNewsletterMessageInfo: {
-      newsletterJid: "120363292876277898@newsletter",
-      newsletterName: "𝐇𝐀𝐍𝐒 𝐓𝐄𝐂𝐇",
-      serverMessageId: 175,
-    },
-  };
-}
+
 
 // Group JIDs handler
 const gjid = async (m, Matrix) => {

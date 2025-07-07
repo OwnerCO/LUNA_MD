@@ -29,6 +29,8 @@ const lime = chalk.bold.hex("#32CD32");
 let useQR = false;
 let initialConnection = true;
 const PORT = process.env.PORT || 3000;
+const require = createRequire(import.meta.url); // ✅ Required for .cjs support
+import { createRequire } from 'module';
 
 const MAIN_LOGGER = pino({
     timestamp: () => `,"time":"${new Date().toJSON()}"`
@@ -84,22 +86,29 @@ async function downloadSessionData() {
         return false;
     }
 }
-    import { readdirSync } from 'fs';
+import { readdirSync } from 'fs';
 import { join } from 'path';
 import { pathToFileURL } from 'url';
 
 const decodedDirname = decodeURIComponent(__dirname);
 const pluginFolder = path.join(decodedDirname, 'plugins');
-const pluginFiles = readdirSync(pluginFolder).filter(file => file.endsWith('.js'));
+const pluginFiles = readdirSync(pluginFolder).filter(file => file.endsWith('.js') || file.endsWith('.cjs'));
 
 for (const file of pluginFiles) {
+    const fullPath = join(pluginFolder, file);
     try {
-        await import(pathToFileURL(join(pluginFolder, file)).href);
-        console.log(chalk.cyan(`✅ Plugin loaded: ${file}`));
+        if (file.endsWith('.js')) {
+            await import(pathToFileURL(fullPath).href);
+            console.log(chalk.green(`✅ Plugin loaded (ESM): ${file}`));
+        } else if (file.endsWith('.cjs')) {
+            require(fullPath);
+            console.log(chalk.blue(`✅ Plugin loaded (CJS): ${file}`));
+        }
     } catch (e) {
-        console.error(`❌ Failed to load plugin ${file}`, e);
+        console.error(chalk.red(`❌ Failed to load plugin ${file}`), e);
     }
 }
+
 
 async function start() {
     try {
@@ -195,11 +204,11 @@ Matrix.ev.on('connection.update', (update) => {
         if (!mek || !mek.message) return;
         if (mek.key.fromMe) return;
         if (mek.message?.protocolMessage || mek.message?.ephemeralMessage || mek.message?.reactionMessage) return; 
-        if (mek.key && mek.key.remoteJid === 'status@broadcast' && config.AUTO_STATUS_SEEN) {
+        if (mek.key && mek.key.remoteJid === 'status@broadcast' && config.AUTO_STATUS_SEEN === "true") {
             await Matrix.readMessages([mek.key]);
             
-            if (config.AUTO_STATUS_REPLY) {
-                const customMessage = config.STATUS_READ_MSG || '✅ NICE STATUS \n> BY 😇 LUNA MD 😇';
+            if (config.AUTO_STATUS_REPLY === "true") {
+                const customMessage = config.STATUS_READ_MSG === "true" || '✅ Auto Status Seen';
                 await Matrix.sendMessage(fromJid, { text: customMessage }, { quoted: mek });
             }
         }

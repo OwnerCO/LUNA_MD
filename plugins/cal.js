@@ -4,6 +4,7 @@ async function doReact(emoji, mek, Matrix) {
   try {
     await Matrix.sendMessage(mek.key.remoteJid, {
       react: { text: emoji, key: mek.key },
+      contextInfo: { ai: true }, // safe place for your flag
     });
   } catch (error) {
     console.error('Error sending reaction:', error);
@@ -59,14 +60,23 @@ const calendar = async (m, Matrix) => {
   try {
     await Matrix.sendMessage(
       m.from,
-      { text: output, contextInfo: newsletterContext },
+      {
+        text: output,
+        contextInfo: {
+          ...newsletterContext,
+          ai: true, // safe addition here
+        },
+      },
       { quoted: m }
     );
   } catch (e) {
     console.error('Calendar command error:', e);
     await Matrix.sendMessage(
       m.from,
-      { text: '❌ Error generating calendar. ' + e.message },
+      {
+        text: '❌ Error generating calendar. ' + e.message,
+        contextInfo: { ai: true }, // safe addition here
+      },
       { quoted: m }
     );
   }

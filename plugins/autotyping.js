@@ -4,18 +4,18 @@ const autotypingCommand = async (m, Matrix) => {
   const botNumber = await Matrix.decodeJid(Matrix.user.id);
   const isCreator = [botNumber, config.OWNER_NUMBER + '@s.whatsapp.net'].includes(m.sender);
   const prefix = config.PREFIX;
-const cmd = m.body.startsWith(prefix) ? m.body.slice(prefix.length).split(' ')[0].toLowerCase() : '';
-const text = m.body.slice(prefix.length + cmd.length).trim();
+  const cmd = m.body.startsWith(prefix) ? m.body.slice(prefix.length).split(' ')[0].toLowerCase() : '';
+  const text = m.body.slice(prefix.length + cmd.length).trim();
 
   if (cmd === 'autotyping') {
     if (!isCreator) return m.reply("*📛 THIS IS AN OWNER COMMAND*");
     let responseMessage;
 
     if (text === 'on') {
-      config.AUTO_TYPING = true;
+      config.AUTO_TYPING = "true";  // <-- string here
       responseMessage = "Auto-Typing has been enabled.";
     } else if (text === 'off') {
-      config.AUTO_TYPING = false;
+      config.AUTO_TYPING = "false"; // <-- string here
       responseMessage = "Auto-Typing has been disabled.";
     } else {
       responseMessage = "Usage:\n- `autotyping on`: Enable Auto-Typing\n- `autotyping off`: Disable Auto-Typing";

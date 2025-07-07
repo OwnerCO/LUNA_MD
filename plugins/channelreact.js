@@ -27,14 +27,7 @@ async function chr(m, Matrix) {
     );
   }
 
-  // Owner check - replace with your actual owner check if different
-  if (!config.OWNER_JIDS?.includes(m.sender)) {
-    return Matrix.sendMessage(
-      m.from,
-      { text: '❌ Owner only command' },
-      { quoted: m }
-    );
-  }
+  
 
   const [link, ...textParts] = args;
   if (!link.includes("whatsapp.com/channel/")) {

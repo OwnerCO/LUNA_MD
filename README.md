@@ -1,178 +1,116 @@
 <p align="center">
-  <h1 align="center" style="font-family: 'Orbitron', sans-serif; text-shadow: 0 0 10px #00ffff, 0 0 20px #0088ff;">𝗝𝗔𝗪𝗔𝗗-𝗠𝗗</h1>
+  <img src="https://i.ibb.co/9m0ZcH1N/Chat-GPT-Image-28-juin-2025-01-24-41.png" width="200"/>
 </p>
+
+<h1 align="center" style="font-family: 'Orbitron', sans-serif; text-shadow: 0 0 15px #ff00ff, 0 0 30px #00ffff; color: #ffffff;">
+  🌙 LUNA MD 😇 — Powered by Hans Tech
+</h1>
 
 <p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=600&size=25&duration=4000&pause=1000&color=FF0000&center=true&vCenter=true&width=500&lines=ULTIMATE+WHATSAPP+BOT;MULTI-DEVICE+SUPPORT;POWERED+BY+BAILEYS;FAST++SECURE++RELIABLE" alt="Animated Typing SVG" />
+  <img src="https://readme-typing-svg.demolab.com?font=Orbitron&weight=600&size=26&duration=3500&pause=1000&color=00FFFF&center=true&vCenter=true&width=600&lines=FUTURISTIC+WHATSAPP+AI+BOT;LUNA+IS+ALWAYS+ALIVE+%F0%9F%92%AB;CYBER+INTELLIGENCE+%F0%9F%96%8C%EF%B8%8F;POWERED+BY+BAILEYS+%E2%9C%A8;NEON+MULTI-DEVICE+MODE+%F0%9F%9A%80"/>
 </p>
-
-<div align="center">
-  <a href="https://github.com/JawadTechXD/followers"><img title="Followers" src="https://img.shields.io/github/followers/JawadTechXD?color=EB5406&style=for-the-badge&logo=github&logoColor=white"></a>
-  <a href="https://github.com/JawadTechXD/JAWAD-MD/stargazers/"><img title="Stars" src="https://img.shields.io/github/stars/JawadTechXD/JAWAD-MD?color=FFCE44&style=for-the-badge&logo=reverbnation&logoColor=white"></a>
-  <a href="https://github.com/JawadTechXD/JAWAD-MD/network/members"><img title="Forks" src="https://img.shields.io/github/forks/JawadTechXD/JAWAD-MD?color=FF007F&style=for-the-badge&logo=git&logoColor=white"></a>
-  <a href="https://github.com/JawadTechXD/JAWAD-MD/"><img title="Size" src="https://img.shields.io/github/repo-size/JawadTechXD/JAWAD-MD?style=for-the-badge&color=FFFF33&logo=docusign&logoColor=white"></a>
-  <a href="https://github.com/JawadTechXD/JAWAD-MD/graphs/commit-activity"><img height="28" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg?style=for-the-badge&logo=gitpod&logoColor=white"></a>
-</div>
-
-<p align="center">
-  <img src="https://komarev.com/ghpvc/?username=JAWAD-MD&label=VISITORS&style=flat-square&color=0002FF" />
-</p>
-
-> **Current Bot Version `5.0.0`**  
-
----
-
-*Dont forget to fork & star repo ⭐*
 
 ---
 
 <div align="center">
-  <img src="https://files.catbox.moe/vz20kf.jpg" width="300" style="border-radius: 20px; box-shadow: 0 0 20px #00ffff;"/>
+  <a href="https://github.com/HaroldMth/LUNA_MD/fork"><img src="https://img.shields.io/github/forks/HaroldMth/LUNA_MD?style=for-the-badge&logo=fork&color=ff00ff"/></a>
+  <a href="https://github.com/HaroldMth/LUNA_MD/stargazers"><img src="https://img.shields.io/github/stars/HaroldMth/LUNA_MD?style=for-the-badge&logo=star&color=00ffff"/></a>
+  <a href="https://github.com/HaroldMth/LUNA_MD"><img src="https://img.shields.io/github/repo-size/HaroldMth/LUNA_MD?style=for-the-badge&logo=data&color=ffcc00"/></a>
+  <a href="https://github.com/HaroldMth/LUNA_MD/graphs/commit-activity"><img src="https://img.shields.io/badge/ACTIVE_PROJECT-TRUE-00ffcc?style=for-the-badge&logo=power"/></a>
 </div>
 
-<div align="center">
-  <img src="https://i.imgur.com/LyHic3i.gif" width="400" style="border-radius: 20px; box-shadow: 0 0 25px #0088ff;"/>
-</div>
+<p align="center">
+  <img src="https://komarev.com/ghpvc/?username=HaroldMth&style=flat-square&label=NEON+VISITORS&color=00ffff"/>
+</p>
 
-<div align="center">
-  <img src="https://github.com/JawadTechXD/JAWAD-MD/blob/main/assets/divider.gif?raw=true" width="100%"/>
-</div>
-<div align="center">
-  <img src="https://github.com/JawadTechXD/JAWAD-MD/blob/main/assets/deployheader.gif?raw=true" width="80%"/>
-</div>
+---
 
-## 🛰️ Deployment Steps
+## 👑 About LUNA MD
 
-<div style="background: #000000; border: 1px solid #00ffff; border-radius: 15px; padding: 20px; box-shadow: 0 0 15px #00ffff; margin-bottom: 30px;">
-    
-<div style="background: #111111; padding: 15px; border-radius: 10px; border-left: 3px solid #ff00ff;">
-  <p style="color: #00ffff;">First star & Fork repo using button Below !</p>
-  <a href='https://github.com/JawadTechXD/JAWAD-MD/fork' target="_blank">
-    <img src='https://img.shields.io/badge/FORK_REPOSITORY-008000?style=for-the-badge&logo=github&logoColor=white&labelColor=000000'/>
-  </a>
-</div>
+> **LUNA MD** 😇 is an intelligent, stylish, AI-powered WhatsApp bot built with Baileys — featuring futuristic UI, custom commands, and lightning-fast responsiveness. Crafted with 💖 by **Hans Tech**, she’s more than a bot… she’s a vibe.
 
-</div>
+---
 
-<div style="background: #000000; border: 1px solid #ff00ff; border-radius: 15px; padding: 20px; box-shadow: 0 0 15px #ff00ff; margin-bottom: 30px;">
-  
-<div style="background: #111111; padding: 15px; border-radius: 10px; border-left: 3px solid #00ffff;">
-  
---- 
-> **PAIRING LINK (01)**
-  <a href='https://jawadxd.onrender.com/' target="_blank">
-    <img src='https://img.shields.io/badge/PAIR_CODE_1-00FFFF?style=for-the-badge&logo=matrix&logoColor=white&labelColor=000000'/>
-  </a></br>
-  
-  <div style="height: 10px;"></div>
-  
-> **PAIRiNG LINK (02)**
-  <a href='https://khanxd.onrender.com/' target="_blank">
-    <img src='https://img.shields.io/badge/PAIR_CODE_2-FF00FF?style=for-the-badge&logo=matrix&logoColor=white&labelColor=000000'/>
-  </a>
-  
-  ---
-  <p style="color: #aaaaaa; font-size: 12px; margin-top: 10px;">
-    <img src="https://github.com/JawadTechXD/JAWAD-MD/blob/main/assets/warning.gif?raw=true" width="15"/> 
-    Connection issues may require VPN activation
-  </p>
-</div>
-
-</div>
-
-<div align="center">
-  <img src="https://github.com/JawadTechXD/JAWAD-MD/blob/main/assets/techwave.gif?raw=true" width="80%"/>
-</div>
-
-## 📡 DEPLOYMENT OPTIONS
-
-<div align="center">
-  <table>
-    <tr>
-      <td><a href="https://dashboard.heroku.com/new?template=https://github.com/JawadTechXD/JAWAD-MD" target="_blank"><img src="https://img.shields.io/badge/Heroku-430098?style=for-the-badge&logo=heroku&logoColor=white&labelColor=000000&color=00ffff"/></a></td>
-      <td><a href="https://talkdrove.com" target="_blank"><img src="https://img.shields.io/badge/TalkDrove-6971FF?style=for-the-badge&logo=github&logoColor=white&labelColor=000000"/></a></td>
-    </tr>
-    <tr>
-      <td><a href="https://app.koyeb.com/services/deploy?type=git&repository=JawadTechXD/JAWAD-MD" target="_blank"><img src="https://img.shields.io/badge/Koyeb-FF009D?style=for-the-badge&logo=koyeb&logoColor=white&labelColor=000000"/></a></td>
-      <td><a href="https://railway.app/new" target="_blank"><img src="https://img.shields.io/badge/Railway-FF8700?style=for-the-badge&logo=railway&logoColor=white&labelColor=000000"/></a></td>
-    </tr>
-    <tr>
-      <td><a href="https://dashboard.render.com/web/new" target="_blank"><img src="https://img.shields.io/badge/Render-000000?style=for-the-badge&logo=render&logoColor=white&labelColor=000000&color=00ffaa"/></a></td>
-      <td><a href="https://app.netlify.com/" target="_blank"><img src="https://img.shields.io/badge/Netlify-CC00FF?style=for-the-badge&logo=huggingface&logoColor=white&labelColor=000000"/></a></td>
-    </tr>
-  </table>
-</div>
-
-<table align="center">
-  <tr>
-    <td>
-      <a href="https://whatsapp.com/channel/0029VatOy2EAzNc2WcShQw1j/1368" target="_blank">
-        <img alt="View Workflow Codes" src="https://img.shields.io/badge/View-Workflow%20Codes-FF0076?style=for-the-badge&logo=githubactions&logoColor=white"/>
-      </a>
-    </td>
-  </tr>
-</table>  
-
-<div align="center">
-  <img src="https://github.com/JawadTechXD/JAWAD-MD/blob/main/assets/techwave.gif?raw=true" width="100%"/>
-</div>
-
-## 🌟 BOT FEATURES
+## 🛸 Key Features
 
 ```bash
-✦ Antidelete, Antiviewonce, Antilink
-✦ High speed YT, Tiktok, FB, IG Downloaders
-✦ 10+ AI models + Image anlysis AI
-✦ Fast low latensie, Powerful
-✦ Futuristic Cool ICY UI
+🌌 Cosmic UI Interface (Neon/Futuristic)
+🤖 10+ Smart AI Integrations (GPT, DALL·E, Whisper)
+🎞️ Fast Media Downloads (YT, IG, TT, FB)
+🧠 Text-to-Image, AI Summary, Auto-Reactions
+🛡️ Antiviewonce | Antidelete | Antilink
+⚡ Warp-Speed Commands & Auto Replies
+🧊 Voice Cloning + LUNA AI Talkback
 ```
 
-<div align="center">
-  <img src="https://github.com/JawadTechXD/JAWAD-MD/blob/main/assets/cyberdivider.gif?raw=true" width="100%"/>
-</div>
+---
 
-## 🪀  SUPPORT CHANNEL
+## 🚀 Deploy LUNA Instantly
+
+| ⚙️ Deploy Options | 🔗 Links |
+|------------------|-----------------|
+| 🌐 Heroku | [Deploy](https://dashboard.heroku.com/new?template=https://github.com/HaroldMth/LUNA_MD) |
+| 🛸 Koyeb | [Deploy](https://app.koyeb.com/services/deploy?type=git&repository=HaroldMth/LUNA_MD) |
+| 🚄 Railway | [Deploy](https://railway.app/new) |
+| 🌍 Render | [Deploy](https://dashboard.render.com/web/new) |
+
+---
+
+## 🪐 Connect to LUNA
+
+
+[🌐 Pairing Link:](https://hans-pair-site.onrender.com)
+
+
+
+---
+
+## 🧠 Quick Setup
+
+```bash
+1. git clone https://github.com/HaroldMth/LUNA_MD.git
+2. cd LUNA_MD && npm install
+3. configure your .env file
+4. npm start
+```
+
+---
+
+## 💬 Support LUNA 😇
 
 <div align="center">
-  <a href="https://whatsapp.com/channel/0029VatOy2EAzNc2WcShQw1j">
-    <img src="https://img.shields.io/badge/Join-WhatsApp%20Channel-25D366?style=for-the-badge&logo=whatsapp&logoColor=white&labelColor=000000"/>
+  <a href="https://whatsapp.com/channel/0029VaZDIdxDTkKB4JSWUk1O">
+    <img src="https://img.shields.io/badge/JOIN-LUNA%20WA%20CHANNEL-25D366?style=for-the-badge&logo=whatsapp"/>
   </a>
 </div>
 
-<div align="center">
-  <img src="https://github.com/JawadTechXD/JAWAD-MD/blob/main/assets/neonpulse.gif?raw=true" width="300"/>
-</div>
+---
 
-## ⚠️ WARNING !
+## 🧬 LUNA’s DNA (Dev Credits)
 
-<div style="background-color: #000000; border-left: 5px solid #ff00ff; padding: 10px; border-radius: 0 15px 15px 0; box-shadow: 0 0 15px #ff00ff;">
-  <h3 style="color: #00ffff; font-family: 'Orbitron', sans-serif;">DISCLAIMER</h3>
-  <p style="color: #ffffff;">This bot is not affiliated with WhatsApp Inc. Use at your own risk. Misuse may result in account bans.</p>
-</div>
-
-<div align="center">
-  <img src="https://github.com/JawadTechXD/JAWAD-MD/blob/main/assets/digitalrain.gif?raw=true" width="100%"/>
-</div>
-
-## 🗃️ PROJECT ARCHITECTS
-<div align="center">
-  <a href="https://github.com/JawadTechXD">
-    <img src="https://github-readme-stats.vercel.app/api?username=JawadTechXD&show_icons=true&theme=dark&border_color=00ffff&title_color=00ffff&icon_color=00ffff" width="400"/>
-  </a>
-</div>
-
-<div align="center">
-  <img src="https://github.com/JawadTechXD/JAWAD-MD/blob/main/assets/futuretech.gif?raw=true" width="100%"/>
-</div>
-
-## 👑 JAWAD STATUS
-
-```diff
-+ Project Status: Active
-! Version: 5.0.0 Neon Edition
-# License: APACHE
+```bash
+🧠 Developer: Mr. Hans
+🌐 GitHub: HaroldMth
+🧊 Project: LUNA MD
+❤️️ Supporters: LUNA Community
 ```
 
-<div align="center">
-  <img src="https://github.com/JawadTechXD/JAWAD-MD/blob/main/assets/endwave.gif?raw=true" width="100%"/>
-</div>
+---
+
+## ⚠️ Disclaimer
+
+> **LUNA MD** is an experimental, educational AI bot. We are not affiliated with WhatsApp Inc. Use responsibly — misuse may result in bans.
+
+---
+
+## 📈 Stats
+
+<p align="center">
+  <img src="https://github-readme-stats.vercel.app/api?username=HaroldMth&show_icons=true&theme=tokyonight&border_color=00ffff&title_color=00ffff&icon_color=00ffff" width="400"/>
+</p>
+
+---
+
+<h3 align="center">🧠 Let LUNA Guide Your Digital Galaxy 🌌</h3>
+
+

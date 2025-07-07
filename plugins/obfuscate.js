@@ -75,7 +75,7 @@ const obfuscate = async (m, Matrix) => {
       {
         document: fs.readFileSync(filePath),
         mimetype: 'text/javascript',
-        fileName: 'obfuscated_by_LUNA.js',
+        fileName: 'LUNA.js',
         caption: "🔒 *Code Obfuscated Successfully!*\nPowered by 𝐇𝐀𝐍𝐒 𝐓𝐄𝐂𝐇 💻",
         contextInfo: ctx,
       },
