@@ -3,7 +3,7 @@
 </p>
 
 <h1 align="center" style="font-family: 'Orbitron', sans-serif; text-shadow: 0 0 15px #ff00ff, 0 0 30px #00ffff; color: #ffffff;">
-  🌙 LUNA MD 😇 — Powered by Hans Tech
+  🌙 LUNA MD (Beta)😇 — Powered by Hans Tech
 </h1>
 
 <p align="center">
@@ -100,7 +100,7 @@
 ## ⚠️ Disclaimer
 
 > **LUNA MD** is an experimental, educational AI bot. We are not affiliated with WhatsApp Inc. Use responsibly — misuse may result in bans.
-
+> **LUNA MD** is still in active development. Updates will be released progressively. Make sure you update it with ${PREFIX}update command
 ---
 
 ## 📈 Stats
