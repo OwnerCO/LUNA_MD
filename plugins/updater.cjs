@@ -1,4 +1,4 @@
-const config = require('../config');
+(async () => {
 let fs = require('fs');
 const { exec } = require('child_process');
 const { cmd } = require('../command');
@@ -12,7 +12,7 @@ cmd({
     filename: __filename
 }, async (conn, mek, m, { from, reply }) => {
     try {
-        const repoUrl = 'https://github.com/JawadYTX/KHAN-MD.git'; 
+        const repoUrl = 'https://github.com/HaroldMth/LUNA_MD.git'; 
         const targetFolder = 'plugins';
 
         
@@ -42,3 +42,4 @@ cmd({
         reply(`*Error during update:* ${error.message}`);
     }
 });
+})();
