@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://i.ibb.co/9m0ZcH1N/Chat-GPT-Image-28-juin-2025-01-24-41.png" width="200"/>
+  <img src="https://i.ibb.co/9m0ZcH1N/Chat-GPT-Image-28-juin-2025-01-24-41.png" width="200"/> 
 </p>
 
 <h1 align="center" style="font-family: 'Orbitron', sans-serif; text-shadow: 0 0 15px #ff00ff, 0 0 30px #00ffff; color: #ffffff;">
