@@ -2,7 +2,7 @@ const fs = require("fs");
 require("dotenv").config();
 
 const config = {
-  SESSION_ID: process.env.SESSION_ID || "HANS-BYTE~A3VGCb7Q#g9F8pX4qSRSK--2aFC-z6KQVB8FqLRQjsBNyj5lWKQk",
+  SESSION_ID: process.env.SESSION_ID || "",//your session id here
   PREFIX: process.env.PREFIX || ".",
 
   AUTO_STATUS_SEEN: process.env.AUTO_STATUS_SEEN || "true",

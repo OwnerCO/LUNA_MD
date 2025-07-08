@@ -37,7 +37,7 @@ const repoCmd = async (m, Matrix) => {
       const repoData = {
         name: "LUNA MD",
         owner: "HaroldMth",
-        repo: "HANS_BYTE",
+        repo: "LUNA MD",
         url: "https://github.com/HaroldMth/LUNA_MD",
         description: "Your adorable digital companion with superpowers! 💖",
         image: "https://i.ibb.co/9m0ZcH1N/Chat-GPT-Image-28-juin-2025-01-24-41.png"
@@ -82,7 +82,7 @@ const repoCmd = async (m, Matrix) => {
         `✨ *LUNA's Source Repository* 🌙\n\n` +
         `🤖 *Bot Name:* LUNA MD\n` +
         `👩‍💻 *Creator:* HaroldMth\n` +
-        `🔗 *GitHub Link:* https://github.com/HaroldMth/HANS_BYTE\n\n` +
+        `🔗 *GitHub Link:* https://github.com/HaroldMth/LUNA_MD\n\n` +
         `📝 *Description:*\nYour adorable digital companion with superpowers! 💖\n\n` +
         `💖 *Don't forget to star the repository if you love LUNA!*\n` +
         `Made with 💖 by Hans Tech`;
