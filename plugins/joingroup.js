@@ -20,23 +20,23 @@ const newsletterContext = {
   },
 };
 
-const getGroupInviteLinkCmd = async (m, Matrix) => {
+const joinGroupCmd = async (m, Matrix) => {
   const prefix = config.PREFIX;
   const body = m.body || "";
   if (!body.startsWith(prefix)) return;
 
   const parts = body.slice(prefix.length).trim().split(/ +/);
   const cmd = parts.shift().toLowerCase();
+  const invite = parts.join(" ").trim();
 
-  if (!["grouplink", "gclink", "link", "invite"].includes(cmd)) return;
+  if (!["joingroup", "join"].includes(cmd)) return;
 
-  const jid = m.key.remoteJid;
-
-  if (!jid.endsWith("@g.us")) {
+  // ✅ Only OWNER can use
+  if (m.sender !== config.OWNER_NUMBER.replace(/[^0-9]/g, "") + "@s.whatsapp.net") {
     await Matrix.sendMessage(
-      jid,
+      m.key.remoteJid,
       {
-        text: "❌ This command only works in group chats!",
+        text: "❌ Only *Hans Tech Owner* can use this command.",
         contextInfo: { ...newsletterContext, mentionedJid: [m.sender] },
       },
       { quoted: m }
@@ -44,33 +44,41 @@ const getGroupInviteLinkCmd = async (m, Matrix) => {
     return;
   }
 
-  await doReact("⏳", m, Matrix);
+  await doReact("🔗", m, Matrix);
 
-  try {
-    const inviteCode = await Matrix.groupInviteCode(jid);
-    const inviteLink = `https://chat.whatsapp.com/${inviteCode}`;
+  const match = invite.match(/chat\.whatsapp\.com\/([0-9A-Za-z]+)/) || invite.match(/^([0-9A-Za-z]{20,})$/);
+  const inviteCode = match ? match[1] : null;
 
+  if (!inviteCode) {
     await Matrix.sendMessage(
-      jid,
+      m.key.remoteJid,
       {
-        text: `✨ *LUNA MD* – Invite Portal 🌐  
-🔗 *Group Invite Link:*  
-🔮 ${inviteLink}  
-📥 Tap to join and unlock exclusive vibes 💬  
-`,
+        text: "❌ Invalid group invite link or code.\n\n📌 *Example:* `.joingroup chat.whatsapp.com/ABC123xyzDEF456`",
         contextInfo: { ...newsletterContext, mentionedJid: [m.sender] },
       },
       { quoted: m }
     );
+    return;
+  }
 
+  try {
+    const response = await Matrix.groupAcceptInvite(inviteCode);
     await doReact("✅", m, Matrix);
+    await Matrix.sendMessage(
+      m.key.remoteJid,
+      {
+        text: `✅ Successfully joined the group!\n🪪 Group ID: ${response}`,
+        contextInfo: { ...newsletterContext, mentionedJid: [m.sender] },
+      },
+      { quoted: m }
+    );
   } catch (error) {
-    console.error("GetGroupInviteLink Error:", error);
+    console.error("JoinGroup Error:", error);
     await doReact("❌", m, Matrix);
     await Matrix.sendMessage(
-      jid,
+      m.key.remoteJid,
       {
-        text: "❌ Failed to get group invite link. Make sure I have admin rights!",
+        text: "❌ Failed to join the group. Make sure the invite link is valid and I’m not banned.",
         contextInfo: { ...newsletterContext, mentionedJid: [m.sender] },
       },
       { quoted: m }
@@ -78,4 +86,4 @@ const getGroupInviteLinkCmd = async (m, Matrix) => {
   }
 };
 
-export default getGroupInviteLinkCmd;
+export default joinGroupCmd;

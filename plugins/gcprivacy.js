@@ -20,7 +20,7 @@ const newsletterContext = {
   },
 };
 
-const getGroupInviteLinkCmd = async (m, Matrix) => {
+const lockUnlockCmd = async (m, Matrix) => {
   const prefix = config.PREFIX;
   const body = m.body || "";
   if (!body.startsWith(prefix)) return;
@@ -28,7 +28,8 @@ const getGroupInviteLinkCmd = async (m, Matrix) => {
   const parts = body.slice(prefix.length).trim().split(/ +/);
   const cmd = parts.shift().toLowerCase();
 
-  if (!["grouplink", "gclink", "link", "invite"].includes(cmd)) return;
+  const lockAliases = ["lock", "mute", "mutegroup", "setannounce", "announce"];
+  const unlockAliases = ["unlock", "unmute", "unmutegroup", "unannounce", "openchat"];
 
   const jid = m.key.remoteJid;
 
@@ -44,33 +45,54 @@ const getGroupInviteLinkCmd = async (m, Matrix) => {
     return;
   }
 
-  await doReact("⏳", m, Matrix);
+  // ✅ Check if sender is admin
+  const metadata = await Matrix.groupMetadata(jid);
+  const admins = metadata.participants
+    .filter((p) => p.admin !== null)
+    .map((p) => p.id);
 
-  try {
-    const inviteCode = await Matrix.groupInviteCode(jid);
-    const inviteLink = `https://chat.whatsapp.com/${inviteCode}`;
-
+  const isSenderAdmin = admins.includes(m.sender);
+  if (!isSenderAdmin) {
     await Matrix.sendMessage(
       jid,
       {
-        text: `✨ *LUNA MD* – Invite Portal 🌐  
-🔗 *Group Invite Link:*  
-🔮 ${inviteLink}  
-📥 Tap to join and unlock exclusive vibes 💬  
-`,
+        text: "❌ Only *group admins* can lock or unlock the group.",
         contextInfo: { ...newsletterContext, mentionedJid: [m.sender] },
       },
       { quoted: m }
     );
+    return;
+  }
 
+  let mode, statusMsg;
+  if (lockAliases.includes(cmd)) {
+    mode = "announcement";
+    statusMsg = "🔒 Group locked: only admins can send messages.";
+  } else if (unlockAliases.includes(cmd)) {
+    mode = "not_announcement";
+    statusMsg = "🔓 Group unlocked: everyone can send messages.";
+  } else return;
+
+  await doReact("⏳", m, Matrix);
+
+  try {
+    await Matrix.groupSettingUpdate(jid, mode);
+    await Matrix.sendMessage(
+      jid,
+      {
+        text: `✅ ${statusMsg}`,
+        contextInfo: { ...newsletterContext, mentionedJid: [m.sender] },
+      },
+      { quoted: m }
+    );
     await doReact("✅", m, Matrix);
   } catch (error) {
-    console.error("GetGroupInviteLink Error:", error);
+    console.error("Lock/Unlock Error:", error);
     await doReact("❌", m, Matrix);
     await Matrix.sendMessage(
       jid,
       {
-        text: "❌ Failed to get group invite link. Make sure I have admin rights!",
+        text: `❌ Failed to update group settings. Make sure I have admin rights!`,
         contextInfo: { ...newsletterContext, mentionedJid: [m.sender] },
       },
       { quoted: m }
@@ -78,4 +100,4 @@ const getGroupInviteLinkCmd = async (m, Matrix) => {
   }
 };
 
-export default getGroupInviteLinkCmd;
+export default lockUnlockCmd;

@@ -20,7 +20,7 @@ const newsletterContext = {
   },
 };
 
-const getGroupInviteLinkCmd = async (m, Matrix) => {
+const revokeGroupInviteLinkCmd = async (m, Matrix) => {
   const prefix = config.PREFIX;
   const body = m.body || "";
   if (!body.startsWith(prefix)) return;
@@ -28,7 +28,7 @@ const getGroupInviteLinkCmd = async (m, Matrix) => {
   const parts = body.slice(prefix.length).trim().split(/ +/);
   const cmd = parts.shift().toLowerCase();
 
-  if (!["grouplink", "gclink", "link", "invite"].includes(cmd)) return;
+  if (!["revokeinvite", "revoke", "resetlink", "relink"].includes(cmd)) return;
 
   const jid = m.key.remoteJid;
 
@@ -47,17 +47,13 @@ const getGroupInviteLinkCmd = async (m, Matrix) => {
   await doReact("⏳", m, Matrix);
 
   try {
-    const inviteCode = await Matrix.groupInviteCode(jid);
-    const inviteLink = `https://chat.whatsapp.com/${inviteCode}`;
+    const newInviteCode = await Matrix.groupRevokeInvite(jid);
+    const newInviteLink = `https://chat.whatsapp.com/${newInviteCode}`;
 
     await Matrix.sendMessage(
       jid,
       {
-        text: `✨ *LUNA MD* – Invite Portal 🌐  
-🔗 *Group Invite Link:*  
-🔮 ${inviteLink}  
-📥 Tap to join and unlock exclusive vibes 💬  
-`,
+        text: `🔗 Group invite link revoked and reset.\nNew invite link:\n${newInviteLink}`,
         contextInfo: { ...newsletterContext, mentionedJid: [m.sender] },
       },
       { quoted: m }
@@ -65,12 +61,12 @@ const getGroupInviteLinkCmd = async (m, Matrix) => {
 
     await doReact("✅", m, Matrix);
   } catch (error) {
-    console.error("GetGroupInviteLink Error:", error);
+    console.error("RevokeGroupInviteLink Error:", error);
     await doReact("❌", m, Matrix);
     await Matrix.sendMessage(
       jid,
       {
-        text: "❌ Failed to get group invite link. Make sure I have admin rights!",
+        text: "❌ Failed to revoke invite link. Make sure I have admin rights!",
         contextInfo: { ...newsletterContext, mentionedJid: [m.sender] },
       },
       { quoted: m }
@@ -78,4 +74,4 @@ const getGroupInviteLinkCmd = async (m, Matrix) => {
   }
 };
 
-export default getGroupInviteLinkCmd;
+export default revokeGroupInviteLinkCmd;

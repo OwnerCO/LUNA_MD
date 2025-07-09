@@ -5,8 +5,8 @@ const config = {
   SESSION_ID: process.env.SESSION_ID || "",//your session id here
   PREFIX: process.env.PREFIX || ".",
 
-  AUTO_STATUS_SEEN: process.env.AUTO_STATUS_SEEN || "true",
-  AUTO_STATUS_REPLY: process.env.AUTO_STATUS_REPLY || "true",
+  AUTO_STATUS_SEEN: process.env.AUTO_STATUS_SEEN || "false",
+  AUTO_STATUS_REPLY: process.env.AUTO_STATUS_REPLY || "false",
   STATUS_READ_MSG: process.env.STATUS_READ_MSG || "",
   VERSION: process.env.VERSION || "1.0.0",
   HEROKU_APP_NAME: process.env.HEROKU_APP_NAME || "LUNA-MD",
@@ -22,7 +22,7 @@ const config = {
   ALWAYS_ONLINE: process.env.ALWAYS_ONLINE || "false",
   AUTO_REACT: process.env.AUTO_REACT || "true",
 
-  AUTO_BLOCK: process.env.AUTO_BLOCK || "true",
+  AUTO_BLOCK: process.env.AUTO_BLOCK || "true", //+212 Auto block
   REJECT_CALL: process.env.REJECT_CALL || "false",
   NOT_ALLOW: process.env.NOT_ALLOW || "true",
 

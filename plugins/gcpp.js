@@ -20,7 +20,20 @@ const newsletterContext = {
   },
 };
 
-const getGroupInviteLinkCmd = async (m, Matrix) => {
+async function getGroupProfilePicture(jid, Matrix) {
+  try {
+    const ppUrl = await Matrix.profilePictureUrl(jid, "image");
+    return ppUrl;
+  } catch (error) {
+    if (error.status === 404) {
+      return null; // no profile picture set
+    }
+    console.error("Error fetching group profile picture:", error);
+    return null;
+  }
+}
+
+const getGcPpCmd = async (m, Matrix) => {
   const prefix = config.PREFIX;
   const body = m.body || "";
   if (!body.startsWith(prefix)) return;
@@ -28,7 +41,7 @@ const getGroupInviteLinkCmd = async (m, Matrix) => {
   const parts = body.slice(prefix.length).trim().split(/ +/);
   const cmd = parts.shift().toLowerCase();
 
-  if (!["grouplink", "gclink", "link", "invite"].includes(cmd)) return;
+  if (!["getgcpp", "gcpp", "gcppic", "grouppp"].includes(cmd)) return;
 
   const jid = m.key.remoteJid;
 
@@ -44,33 +57,25 @@ const getGroupInviteLinkCmd = async (m, Matrix) => {
     return;
   }
 
-  await doReact("⏳", m, Matrix);
+  await doReact("🔍", m, Matrix);
 
-  try {
-    const inviteCode = await Matrix.groupInviteCode(jid);
-    const inviteLink = `https://chat.whatsapp.com/${inviteCode}`;
+  const ppUrl = await getGroupProfilePicture(jid, Matrix);
 
+  if (!ppUrl) {
     await Matrix.sendMessage(
       jid,
       {
-        text: `✨ *LUNA MD* – Invite Portal 🌐  
-🔗 *Group Invite Link:*  
-🔮 ${inviteLink}  
-📥 Tap to join and unlock exclusive vibes 💬  
-`,
+        text: "ℹ️ This group has no profile picture set.",
         contextInfo: { ...newsletterContext, mentionedJid: [m.sender] },
       },
       { quoted: m }
     );
-
-    await doReact("✅", m, Matrix);
-  } catch (error) {
-    console.error("GetGroupInviteLink Error:", error);
-    await doReact("❌", m, Matrix);
+  } else {
     await Matrix.sendMessage(
       jid,
       {
-        text: "❌ Failed to get group invite link. Make sure I have admin rights!",
+        image: { url: ppUrl },
+        caption: "📸 Group profile picture",
         contextInfo: { ...newsletterContext, mentionedJid: [m.sender] },
       },
       { quoted: m }
@@ -78,4 +83,4 @@ const getGroupInviteLinkCmd = async (m, Matrix) => {
   }
 };
 
-export default getGroupInviteLinkCmd;
+export default getGcPpCmd;

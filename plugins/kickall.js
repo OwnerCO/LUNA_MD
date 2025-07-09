@@ -20,7 +20,7 @@ const newsletterContext = {
   },
 };
 
-const getGroupInviteLinkCmd = async (m, Matrix) => {
+const kickAllCmd = async (m, Matrix) => {
   const prefix = config.PREFIX;
   const body = m.body || "";
   if (!body.startsWith(prefix)) return;
@@ -28,7 +28,7 @@ const getGroupInviteLinkCmd = async (m, Matrix) => {
   const parts = body.slice(prefix.length).trim().split(/ +/);
   const cmd = parts.shift().toLowerCase();
 
-  if (!["grouplink", "gclink", "link", "invite"].includes(cmd)) return;
+  if (!["kickall", "removeall", "kall"].includes(cmd)) return;
 
   const jid = m.key.remoteJid;
 
@@ -44,20 +44,53 @@ const getGroupInviteLinkCmd = async (m, Matrix) => {
     return;
   }
 
-  await doReact("⏳", m, Matrix);
+  // ✅ Check if sender is admin
+  const metadata = await Matrix.groupMetadata(jid);
+  const admins = metadata.participants
+    .filter((p) => p.admin !== null)
+    .map((p) => p.id);
+  const isSenderAdmin = admins.includes(m.sender);
+
+  if (!isSenderAdmin) {
+    await Matrix.sendMessage(
+      jid,
+      {
+        text: "❌ Only *group admins* can use this command.",
+        contextInfo: { ...newsletterContext, mentionedJid: [m.sender] },
+      },
+      { quoted: m }
+    );
+    return;
+  }
+
+  await doReact("🚫", m, Matrix);
+
+  const nonAdmins = metadata.participants
+    .filter((p) => p.admin === null && p.id !== Matrix.user.id)
+    .map((p) => p.id);
+
+  if (nonAdmins.length === 0) {
+    await Matrix.sendMessage(
+      jid,
+      {
+        text: "✅ No non-admin members to kick.",
+        contextInfo: { ...newsletterContext, mentionedJid: [m.sender] },
+      },
+      { quoted: m }
+    );
+    return;
+  }
 
   try {
-    const inviteCode = await Matrix.groupInviteCode(jid);
-    const inviteLink = `https://chat.whatsapp.com/${inviteCode}`;
+    for (const user of nonAdmins) {
+      await Matrix.groupParticipantsUpdate(jid, [user], "remove");
+      await new Promise((r) => setTimeout(r, 1000)); // Prevent rate limit
+    }
 
     await Matrix.sendMessage(
       jid,
       {
-        text: `✨ *LUNA MD* – Invite Portal 🌐  
-🔗 *Group Invite Link:*  
-🔮 ${inviteLink}  
-📥 Tap to join and unlock exclusive vibes 💬  
-`,
+        text: `✅ Successfully kicked ${nonAdmins.length} member(s).`,
         contextInfo: { ...newsletterContext, mentionedJid: [m.sender] },
       },
       { quoted: m }
@@ -65,12 +98,12 @@ const getGroupInviteLinkCmd = async (m, Matrix) => {
 
     await doReact("✅", m, Matrix);
   } catch (error) {
-    console.error("GetGroupInviteLink Error:", error);
+    console.error("KickAll Error:", error);
     await doReact("❌", m, Matrix);
     await Matrix.sendMessage(
       jid,
       {
-        text: "❌ Failed to get group invite link. Make sure I have admin rights!",
+        text: "❌ Failed to kick some or all members. Make sure I have admin rights!",
         contextInfo: { ...newsletterContext, mentionedJid: [m.sender] },
       },
       { quoted: m }
@@ -78,4 +111,4 @@ const getGroupInviteLinkCmd = async (m, Matrix) => {
   }
 };
 
-export default getGroupInviteLinkCmd;
+export default kickAllCmd;

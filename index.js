@@ -197,6 +197,9 @@ Matrix.ev.on('connection.update', (update) => {
             }
         });
         
+        Matrix.ev.on('group-participants.update',
+  async (update) => await GroupUpdate(Matrix, update)
+)
         Matrix.ev.on('messages.upsert', async (chatUpdate) => {
     try {
         const mek = chatUpdate.messages[0];

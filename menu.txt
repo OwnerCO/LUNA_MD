@@ -27,7 +27,6 @@ typegame
 lovecheck
 matchme
 reverse
-gclink
 gdrive
 gemini 
 lunaai
@@ -96,3 +95,16 @@ video
 spotify
 ssweb
 "@whiskeysockets/baileys": "github:gatanina-li/baileys",
+
+
+
+group
+
+setdesc
+setname
+gclink
+lock
+unlock
+revoke
+gcpp
+

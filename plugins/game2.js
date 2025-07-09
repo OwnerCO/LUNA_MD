@@ -180,36 +180,6 @@ const funUtilityCommands = async (m, Matrix) => {
   }
 
     // 🌟 Group Link Command
-if (["gclink", "grouplink", "invitelink", "link"].includes(cmd)) {
-    await doReact("🔗", m, Matrix);
-    try {
-        if (!m.key.remoteJid.endsWith("@g.us")) {
-            return await reply("❌ Oopsie! This command only works in groups, sweetie! 💖\nJoin a group first! 👯‍♀️");
-        }
-
-        // Check if LUNA is admin
-        const metadata = await Matrix.groupMetadata(m.from);
-        const isBotAdmin = metadata.participants.find(p => p.id === Matrix.user.id)?.admin;
-        
-        if (!isBotAdmin) {
-            return await reply("❌ Aww! I need admin powers to create links! 🥺\nPlease make me admin first! 👑💖");
-        }
-
-        const code = await Matrix.groupInviteCode(m.from);
-        await reply(
-            `✨ *LUNA's Group Invite Link* 🔗\n\n` +
-            `Here's your fresh group link:\n` +
-            `https://chat.whatsapp.com/${code}\n\n` +
-            `Share with friends! 💌\n` +
-            `Made with 💖 by Hans Tech!`,
-            { contextInfo: newsletterContext }
-        );
-    } catch (e) {
-        console.error("Group link error:", e);
-        await reply("❌ Oh no! The link fairy flew away... 🧚‍♀️💔\nLet me try again? 😇");
-    }
-    return;
-}
 
   // 🔢 Count Command
   const botOwner2 = config.OWNER_NUMBER;

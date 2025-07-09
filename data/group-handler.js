@@ -1,11 +1,12 @@
 import moment from 'moment-timezone';
 import config from '../config.cjs';
 
-export default async function GroupParticipants(sock, { id, participants, action, m }, Matrix) {
+export default async function GroupParticipants(sock, { id, participants, action }) {
   try {
     const metadata = await sock.groupMetadata(id);
 
     for (const jid of participants) {
+      // Get user profile picture or fallback
       let profile;
       try {
         profile = await sock.profilePictureUrl(jid, 'image');
@@ -14,97 +15,54 @@ export default async function GroupParticipants(sock, { id, participants, action
       }
 
       const userName = jid.split('@')[0];
-      const nowGMT = moment.tz('Etc/GMT').format('HH:mm:ss');
-      const todayGMT = moment.tz('Etc/GMT').format('DD/MM/YYYY');
+      const currentTime = moment().tz('GMT').format('HH:mm:ss');
+      const currentDate = moment().tz('GMT').format('DD/MM/YYYY');
       const membersCount = metadata.participants.length;
 
       if (action === 'add' && config.WELCOME === 'true') {
-        const text = 
-`👋 *Hello* @${userName}!
-
-Welcome to *${metadata.subject}* 🎉
-
-✨ You are member number *${membersCount}*
-
-⏰ Joined at: *${nowGMT} GMT* on *${todayGMT}*
-
-Enjoy your stay! 🚀`;
+        const welcomeMsg = 
+          `👋 Hello @${userName}! Welcome to *${metadata.subject}*.\n` +
+          `🎉 You are member number ${membersCount}.\n` +
+          `⏰ Joined at ${currentTime} GMT on ${currentDate}.`;
 
         await sock.sendMessage(id, {
-          text,
+          text: welcomeMsg,
           contextInfo: {
             mentionedJid: [jid],
             externalAdReply: {
-              title: `Welcome to ${metadata.subject}`,
+              title: 'Welcome',
               mediaType: 1,
+              previewType: 0,
               renderLargerThumbnail: true,
               thumbnailUrl: profile,
+              sourceUrl: 'https://whatsapp.com/channel/0029VaZDIdxDTkKB4JSWUk1O',
             },
           },
         });
-
-        // Optional: Matrix sendMessage with image
-        if (Matrix?.sendMessage) {
-          await Matrix.sendMessage(m.from, {
-            image: { url: "https://i.ibb.co/6Rxhg321/Chat-GPT-Image-Mar-30-2025-03-39-42-AM.png" },
-            caption: text,
-            contextInfo: {
-              mentionedJid: [m.sender],
-              forwardingScore: 1000,
-              isForwarded: true,
-              forwardedNewsletterMessageInfo: {
-                newsletterJid: "120363292876277898@newsletter",
-                newsletterName: "𝐋𝐔𝐍𝐀 𝐌𝐃",
-                serverMessageId: 151,
-              },
-            },
-          });
-        }
-
       } else if (action === 'remove' && config.WELCOME === 'true') {
-        const text =
-`👋 *Goodbye* @${userName}!
-
-We're now *${membersCount}* members in *${metadata.subject}*.
-
-⏰ Left at: *${nowGMT} GMT* on *${todayGMT}*
-
-We'll miss you! 💔`;
+        const leaveMsg =
+          `👋 Goodbye @${userName}!\n` +
+          `😢 We're now ${membersCount} members in *${metadata.subject}*.\n` +
+          `⏰ Left at ${currentTime} GMT on ${currentDate}.`;
 
         await sock.sendMessage(id, {
-          text,
+          text: leaveMsg,
           contextInfo: {
             mentionedJid: [jid],
             externalAdReply: {
-              title: `Farewell from ${metadata.subject}`,
+              title: 'Goodbye',
               mediaType: 1,
+              previewType: 0,
               renderLargerThumbnail: true,
               thumbnailUrl: profile,
-              sourceUrl: 'https://sid-bhai.vercel.app',
+              sourceUrl: 'https://whatsapp.com/channel/0029VaZDIdxDTkKB4JSWUk1O',
             },
           },
         });
-
-        // Optional: Matrix farewell
-        if (Matrix?.sendMessage) {
-          await Matrix.sendMessage(m.from, {
-            image: { url: "https://i.ibb.co/6Rxhg321/Chat-GPT-Image-Mar-30-2025-03-39-42-AM.png" },
-            caption: text,
-            contextInfo: {
-              mentionedJid: [m.sender],
-              forwardingScore: 1000,
-              isForwarded: true,
-              forwardedNewsletterMessageInfo: {
-                newsletterJid: "120363292876277898@newsletter",
-                newsletterName: "𝐋𝐔𝐍𝐀 𝐌𝐃",
-                serverMessageId: 151,
-              },
-            },
-          });
-        }
       }
     }
-  } catch (e) {
-    console.error('❌ GroupParticipants error:', e);
+  } catch (error) {
+    console.error('GroupParticipants error:', error);
+    throw error;
   }
 }
