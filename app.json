@@ -1,7 +1,7 @@
 {
   "name": "LUNA-MD",
   "description": "A powerful WhatsApp bot: LUNA MD by HANS TECH",
-  "repository": "https://github.com/Hans-Tech/LUNA-MD",
+  "repository": "https://github.com/OwnerCO/LUNA-MD",
   "logo": "https://i.ibb.co/9m0ZcH1N/Chat-GPT-Image-28-juin-2025-01-24-41.png",
   "keywords": ["WhatsApp", "Bot", "Node.js", "LUNA", "LUNA-MD"],
   "env": {
